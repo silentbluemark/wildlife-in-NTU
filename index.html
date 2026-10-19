@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>臺大生態尋寶圖 NTU Eco-Hunter</title>
+<style>
+:root{--bg:#f0fdf4;--card:#fff;--tx:#14301f;--mu:#5b6b60;--bd:#d5e3d9;--g:#15803d;--g2:#059669;--am:#d97706;--rd:#dc2626;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0e1a13;--card:#16261c;--tx:#e6f2ea;--mu:#9bb0a2;--bd:#294234;--g:#4ade80;--g2:#34d399;--am:#fbbf24;--rd:#f87171}}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;overflow-x:hidden}
+.w{max-width:1200px;margin:0 auto;padding:12px}
+header{background:linear-gradient(135deg,#15803d,#059669);color:#fff;border-radius:16px;padding:16px}
+header h1{margin:0;font-size:22px}.bar{height:10px;background:#ffffff44;border-radius:9px;overflow:hidden;margin:8px 0}
+.bar i{display:block;height:100%;background:#fcd34d;transition:width .4s}
+button,select,input{font:inherit;color:inherit}
+.btn{min-height:44px;padding:0 14px;border-radius:10px;border:1px solid var(--bd);background:var(--card);cursor:pointer}
+.btn.p{background:var(--g);color:#fff;border-color:var(--g)}.btn.on{background:var(--am);color:#fff;border-color:var(--am)}
+header .btn{background:#ffffff26;color:#fff;border-color:#ffffff55;min-height:36px}
+section{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px;margin-top:12px}
+h2{margin:0 0 8px;font-size:16px}
+.badges{display:flex;flex-wrap:wrap;gap:6px}.bd{border:1px solid var(--bd);border-radius:20px;padding:4px 10px;font-size:13px;opacity:.55}.bd.u{opacity:1;border-color:var(--am);color:var(--am);font-weight:600}
+.two{display:grid;gap:12px}@media(min-width:1024px){.two{grid-template-columns:1fr 1fr}}
+.fl{display:grid;gap:8px;grid-template-columns:1fr 1fr}@media(min-width:1024px){.fl{grid-template-columns:repeat(5,1fr)}}
+.fl select,.fl input{min-height:44px;padding:0 10px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);width:100%}
+.fl .s{grid-column:1/-1}@media(min-width:1024px){.fl .s{grid-column:auto}}
+.grid{display:grid;gap:12px;grid-template-columns:1fr}@media(min-width:768px){.grid{grid-template-columns:1fr 1fr}}@media(min-width:1024px){.grid{grid-template-columns:repeat(3,1fr)}}@media(min-width:1280px){.grid{grid-template-columns:repeat(4,1fr)}}
+.c{background:var(--card);border:2px solid var(--bd);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.c.f{border-color:var(--am);animation:pop .5s}@media(prefers-reduced-motion:reduce){.c.f{animation:none}.cf{display:none}}
+@keyframes pop{40%{transform:scale(1.03)}}
+.ph{height:90px;display:grid;place-items:center;font-size:44px;background:linear-gradient(135deg,#dcfce7,#bbf7d0);color:#000}
+.ph.sil{background:#334;filter:brightness(.3) contrast(2)}
+.cb{padding:10px;display:flex;flex-direction:column;gap:6px;flex:1}.cb h3{margin:0;font-size:17px}
+.tg{font-size:12px;padding:1px 8px;border-radius:10px;border:1px solid var(--bd);color:var(--mu);display:inline-block}
+.r1{color:var(--mu)}.r2{color:#0284c7;border-color:#0284c7}.r3{color:#9333ea;border-color:#9333ea}
+.al{background:#fee2e2;color:#b91c1c;border-radius:8px;padding:4px 8px;font-size:13px}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .al{background:#450a0a;color:#fca5a5}}
+.m{font-size:13px;color:var(--mu)}.row{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto}.row .btn{flex:1;white-space:nowrap}
+.gi{display:flex;gap:6px}.gi input{flex:1;min-height:40px;padding:0 8px;border:1px solid var(--bd);border-radius:8px;background:var(--bg)}
+svg text{font-size:13px;fill:#14301f;pointer-events:none;font-weight:600}.zn{cursor:pointer;stroke:#fff;stroke-width:2}.zn:hover,.zn:focus,.zn.sel{stroke:var(--am);stroke-width:4;outline:none}
+.ft{text-align:center;color:var(--mu);font-size:13px;margin:16px 0}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#111;color:#fff;padding:10px 16px;border-radius:12px;z-index:50;display:none;max-width:90vw}
+.cf{position:fixed;top:-10px;width:8px;height:12px;z-index:40;pointer-events:none;animation:fall 1.6s linear forwards}@keyframes fall{to{transform:translateY(105vh) rotate(720deg)}}
+.em{text-align:center;padding:30px;color:var(--mu)}
+</style></head><body><div class="w">
+<header><h1>🌿 臺大生態尋寶圖 <small style="font-size:13px;opacity:.85">NTU Eco-Hunter</small></h1>
+<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><b id="title"></b><span id="cnt"></span><button class="btn" onclick="resetAll()">重置紀錄</button></div>
+<div class="bar"><i id="pb"></i></div></header>
+
+<section><h2>🏅 成就徽章</h2><div class="badges" id="badges"></div>
+<div style="margin-top:10px"><button class="btn" id="silBtn" onclick="toggleSil()"></button> <span class="m">開啟後未尋獲物種以剪影與謎語呈現</span></div></section>
+
+<div class="two">
+<section><h2>🗺️ 校園生態地圖 <span class="m">（示意圖，非精確比例）</span></h2>
+<svg viewBox="0 0 400 250" width="100%" role="group" aria-label="校園分區地圖"><rect width="400" height="250" rx="10" fill="#e7f5ea"/>
+<g id="zones"></g></svg>
+<button class="btn" style="width:100%;margin-top:6px" id="z5b" onclick="pickZone('zone-5')"></button></section>
+<section><h2>📍 GPS 地理圍欄打卡</h2>
+<label><input type="checkbox" id="gps" onchange="gpsChg()"> 啟用定位驗證打卡</label><br>
+<label><input type="checkbox" id="test"> 測試模式（略過定位）</label>
+<p class="m">定位資料僅在裝置端比對，不會上傳。座標與半徑為概略設定，未經實地測量。取消打卡不需定位。</p>
+<div id="gmsg" class="m"></div></section></div>
+
+<section><div class="fl">
+<select id="fm" onchange="draw()"></select><select id="fz" onchange="draw()"></select>
+<select id="fc" onchange="draw()"><option value="">全部分類</option><option>鳥類</option><option>兩棲爬蟲</option><option>哺乳與魚類</option><option>昆蟲</option></select>
+<select id="fs" onchange="draw()"><option value="">全部狀態</option><option value="y">已尋獲</option><option value="n">未尋獲</option></select>
+<input class="s" id="q" placeholder="搜尋名稱、俗稱、習性（如 大笨鳥、蚯蚓）" oninput="draw()"></div></section>
+
+<div id="grid" class="grid" style="margin-top:12px"></div>
+<p class="ft">紀錄僅存於此瀏覽器。活躍月份、稀有度與謎語為一般知識自行擬定，尚待生態專家審查。</p></div>
+<div id="toast"></div>
+<script>
+const Z={'zone-1':['醉月湖水域與湖畔',25.0190,121.5365,220],'zone-2':['臺大農場、生態池與瑠公圳復育區',25.0125,121.5440,300],'zone-3':['椰林大道、傅鐘與周邊老樹區',25.0173,121.5395,150],'zone-4':['總圖前草地、文學院周邊',25.0166,121.5403,180],'zone-5':['全校園廣泛分佈',25.0172,121.5397,1000]};
+const ZS={'zone-1':['醉月湖',20,20,170,100,'#93c5fd'],'zone-2':['農場',230,130,150,100,'#bef264'],'zone-3':['椰林大道',20,130,200,45,'#86efac'],'zone-4':['總圖前草地',230,20,150,100,'#6ee7b7']};
+const B='鳥類',R='爬蟲類',A='兩棲類',F='魚類',I='昆蟲',M='哺乳類';
+// id,名稱,俗稱,分類,分區,月份(0=全年),稀有度,習性,外觀,警示,謎語,emoji
+const D=[
+[1,'黑冠麻鷺','大笨鳥、暗光鳥、花和尚',B,4,0,2,'草地上緩步低頭翻找蚯蚓，不太怕人。','黑色冠羽、栗褐身軀，頸部有白斑。','','頭戴黑冠，在草地上慢吞吞找蚯蚓的鳥？','🐦'],
+[2,'夜鷺','暗光鳥',B,1,0,2,'黃昏後湖邊守候覓食，白天常停棲樹上。','灰藍背部、黑頭，後頸有長白羽。','','黃昏湖畔靜靜守候的灰背鷺？','🐦'],
+[3,'紅冠水雞','',B,1,0,1,'在湖面與水草邊划行，尾巴不斷上下抖動。','黑灰羽色，紅色額甲與黃嘴尖。','','額頭紅紅、愛在水草間划行的鳥？','🐦'],
+[4,'小白鷺','',B,1,0,1,'淺水處踱步覓魚，繁殖期有飾羽。','全身雪白、黑嘴黃腳趾。','','黑嘴黃腳、一身雪白的水邊鳥？','🐦'],
+[5,'綠頭鴨','',B,1,0,1,'湖面游水，常成群聚集。','雄鳥頭部閃綠、頸部有白環。','','雄鳥有顆綠色腦袋的水鳥？','🦆'],
+[6,'鵝','',B,1,0,1,'湖畔草地行走，領域性強請勿逗弄。','體型大、白色或灰褐羽毛，長頸。','','脖子長長、叫聲嘹亮的大型家禽？','🦢'],
+[7,'斑龜','',R,1,'3-11',2,'溫暖天氣常見於岸邊曬太陽。','背甲有放射狀斑紋，頭頸有黃綠條紋。','','愛在岸邊曬太陽的殼背朋友？','🐢'],
+[8,'吳郭魚','',F,1,0,1,'在湖中悠游，繁殖季會築巢護卵。','側扁、帶黑色橫紋的淡水魚。','','湖裡最常見、帶橫紋的外來魚？','🐟'],
+[9,'貢德氏赤蛙','狗吠蛙',A,2,'3-10',3,'雨後夜間鳴叫，聲如狗吠。','體型大、背側有明顯隆起線。','','叫聲像小狗汪汪的蛙？','🐸'],
+[10,'大鳳蝶','',I,2,'3-11',2,'溫暖白天在花叢間翩翩飛舞。','黑色大型翅膀，後翅有白斑與尾突。','','翅膀大、黑底白斑的蝴蝶？','🦋'],
+[11,'台灣鋏蠓','',I,2,'4-11',3,'潮濕草叢邊活動，叮咬後相當癢。','體型極小的吸血蠓類。','需注意防蚊','小到幾乎看不見、咬人又癢的飛蟲？','🦟'],
+[12,'赤腹松鼠','',M,3,0,1,'在老樹與草地間跳躍，會向人討食。','背灰褐、腹部赤紅，尾巴蓬鬆。','','腹部紅通通、愛爬樹的小動物？','🐿️'],
+[13,'斯文豪氏攀蜥','',R,3,'3-11',2,'停在樹幹上伺機捕食昆蟲。','體色隨環境變化，頭頸帶綠。','','會在樹幹上變色的小蜥蜴？','🦎'],
+[14,'五色鳥','',B,3,0,2,'躲在樹冠，規律的叩叩聲很好辨認。','綠色身體，頭部有紅藍黃黑多彩色塊。','','一身綠、頭上五彩、叫聲像敲木魚的鳥？','🐦'],
+[15,'鳳頭蒼鷹','',B,3,0,3,'老樹上築巢，常在高空盤旋。','頭有短冠羽，胸腹有褐色橫斑。','繁殖期請保持觀察距離','頭上有小冠、在老樹築巢的猛禽？','🦅'],
+[16,'珠頸斑鳩','',B,4,0,1,'草地與步道上點頭覓食。','頸側有珍珠般白點的斑塊。','','脖子上戴著珍珠斑點的鳥？','🕊️'],
+[17,'黑眶蟾蜍','',A,4,'3-10',2,'夜間出沒草地，常在路燈下抓蟲。','皮膚粗糙，眼眶有黑色稜線。','','夜裡在路燈下捕蟲的疣粒小蟾？','🐸'],
+[18,'白頭翁','白頭鵯',B,5,0,1,'遍布全校，枝頭大聲鳴叫。','後腦有一片白羽，眼後黑。','','後腦勺一片白、校園最吵的鳥？','🐦'],
+[19,'綠繡眼','',B,5,0,1,'成群在花間吸蜜，動作靈活。','黃綠羽色，眼周有一圈白環。','','眼睛圈著白框的黃綠小鳥？','🐦'],
+[20,'麻雀','',B,5,0,1,'在系館周圍地面跳躍覓食。','褐色羽色，臉頰有黑斑。','','臉頰有黑點、處處可見的小褐鳥？','🐤']
+].map(a=>({id:a[0],name:a[1],alias:a[2],cat:a[3],zone:'zone-'+a[4],m:a[5],rar:a[6],note:a[7],desc:a[8],alert:a[9],rid:a[10],em:a[11]}));
+const wiki=n=>'https://zh.wikipedia.org/wiki/'+encodeURIComponent({白頭翁:'白頭鵯',綠繡眼:'暗綠繡眼'}[n]||n);
+const active=(s,m)=>!m||!s.m||(([a,b])=>m>=a&&m<=b)(s.m.split('-').map(Number));
+const RN=['','普通','少見','稀有'];
+const S={f:{},rv:{},bd:{}};
+try{Object.assign(S,JSON.parse(localStorage.getItem('eh')||'{}'))}catch(e){}
+let sil=!!S.sil;
+const save=()=>{S.sil=sil;try{localStorage.setItem('eh',JSON.stringify(S))}catch(e){}};
+const $=i=>document.getElementById(i);
+const BG=[['🌱','初出茅廬',()=>nF()>=1,'完成第一次尋獲'],['🦆','湖畔觀察員',()=>all(D.filter(s=>s.zone=='zone-1')),'尋獲醉月湖全部物種'],['🐦','鳥類達人',()=>all(D.filter(s=>s.cat==B)),'尋獲所有鳥類'],['🐸','兩棲爬蟲通',()=>all(D.filter(s=>s.cat==A||s.cat==R)),'尋獲所有兩棲與爬蟲類'],['💎','稀有獵人',()=>all(D.filter(s=>s.rar==3)),'尋獲所有稀有物種'],['🧩','解謎高手',()=>Object.values(S.rv).filter(v=>v=='s').length>=5,'猜對 5 種剪影'],['🏆','臺大生態大師',()=>nF()==20,'集滿全部 20 種']];
+const nF=()=>Object.keys(S.f).length,all=l=>l.every(s=>S.f[s.id]);
+function toast(t){const e=$('toast');e.textContent=t;e.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display='none',2800)}
+function confetti(n=30){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;for(let i=0;i<n;i++){const e=document.createElement('i');e.className='cf';e.style.left=Math.random()*100+'vw';e.style.background=['#f59e0b','#10b981','#3b82f6','#ec4899','#a855f7'][i%5];e.style.animationDelay=Math.random()*.4+'s';document.body.appendChild(e);setTimeout(()=>e.remove(),2300)}}
+function checkBadges(quiet){let nw=[];BG.forEach(b=>{if(!S.bd[b[1]]&&b[2]()){S.bd[b[1]]=1;nw.push(b)}});if(nw.length&&!quiet){toast('🎉 解鎖徽章：'+nw.map(b=>b[0]+b[1]).join('、'));confetti(70)}}
+function head(){const n=nF(),p=Math.round(n/20*100);$('cnt').textContent=n+' / 20（'+p+'%）';$('pb').style.width=p+'%';$('title').textContent='稱號：'+(p>=100?'臺大生態大師':p>=50?'校園觀察家':'生態見習生');
+$('badges').innerHTML=BG.map(b=>`<span class="bd ${S.bd[b[1]]?'u':''}">${S.bd[b[1]]?b[0]:'🔒'} ${b[1]}${S.bd[b[1]]?'':'（'+b[3]+'）'}</span>`).join('');
+$('silBtn').textContent=(sil?'🕵️ 剪影猜猜看：開':'🕵️ 剪影猜猜看：關');$('silBtn').className='btn '+(sil?'on':'')}
+function mapDraw(){const m=+$('fm').value,z=$('fz').value;const cnt=zid=>{const l=D.filter(s=>s.zone==zid&&active(s,m));return l.length+'種・已尋獲'+l.filter(s=>S.f[s.id]).length};
+$('zones').innerHTML=Object.entries(ZS).map(([k,v])=>`<g><rect class="zn ${z==k?'sel':''}" tabindex="0" role="button" aria-label="${v[0]}" x="${v[1]}" y="${v[2]}" width="${v[3]}" height="${v[4]}" rx="12" fill="${v[5]}" onclick="pickZone('${k}')" onkeydown="if(event.key=='Enter'||event.key==' '){event.preventDefault();pickZone('${k}')}"/><text x="${v[1]+v[3]/2}" y="${v[2]+v[4]/2-2}" text-anchor="middle">${v[0]}</text><text x="${v[1]+v[3]/2}" y="${v[2]+v[4]/2+16}" text-anchor="middle" style="font-weight:400;font-size:11px">${cnt(k)}</text></g>`).join('');
+$('z5b').textContent='🌐 全校園分佈物種（'+cnt('zone-5')+'）';$('z5b').className='btn '+(z=='zone-5'?'on':'')}
+function pickZone(k){$('fz').value=$('fz').value==k?'':k;draw()}
+function draw(){const m=+$('fm').value,z=$('fz').value,c=$('fc').value,st=$('fs').value,q=$('q').value.trim();
+const cg=s=>!c||(c=='兩棲爬蟲'?(s.cat==A||s.cat==R):c=='哺乳與魚類'?(s.cat==M||s.cat==F):s.cat==c);
+const L=D.filter(s=>active(s,m)&&(!z||s.zone==z)&&cg(s)&&(!st||(st=='y')==!!S.f[s.id])&&(!q||(s.name+s.alias+s.desc+s.note+s.cat).includes(q)));
+head();mapDraw();
+$('grid').innerHTML=L.length?L.map(card).join(''):`<div class="em" style="grid-column:1/-1">🔍 找不到符合的物種<br><br><button class="btn p" onclick="clr()">清除篩選</button></div>`}
+const IP={
+1:{b:'#8b5a3c',h:'#8b5a3c',bk:'#6b7280',bl:'#c9a27c',lg:'#6b7280',x:'<path d="M40 16L38 6L50 15Z" fill="#111"/><ellipse cx="42" cy="31" rx="3.5" ry="2.5" fill="#fff"/>'},
+2:{b:'#64748b',h:'#1f2937',bk:'#111',bl:'#e2e8f0',lg:'#d4a017',e:'#dc2626',x:'<path d="M40 18Q32 18 27 27" stroke="#fff" stroke-width="2" fill="none"/>'},
+3:{b:'#374151',h:'#1f2937',bk:'#facc15',bl:'#4b5563',lg:'#84cc16',x:'<path d="M49 16Q55 18 52 25L49 26Z" fill="#dc2626"/><path d="M20 42Q30 47 40 42" stroke="#fff" stroke-width="2" fill="none"/>'},
+4:{long:1,b:'#fff',h:'#fff',bk:'#111',bl:'#f1f5f9',lg:'#111',st:'#94a3b8',ft:'<path d="M24 58H31M31 58H38" stroke="#facc15" stroke-width="3" stroke-linecap="round"/>'},
+14:{b:'#22a55a',h:'#22c55e',bk:'#d6c9a0',bl:'#4ade80',lg:'#6b7280',x:'<circle cx="44" cy="16" r="3" fill="#dc2626"/><circle cx="41" cy="23" r="2.5" fill="#facc15"/><circle cx="45" cy="28" r="2.5" fill="#2563eb"/>'},
+18:{b:'#6b705c',h:'#111',bk:'#111',bl:'#f5f5f4',lg:'#444',x:'<ellipse cx="41" cy="20" rx="3" ry="4.5" fill="#fff"/>'},
+5:{b:'#9ca3af',h:'#15803d',bk:'#facc15',bl:'#d1d5db',lg:'#f97316',x:'<path d="M39 30L47 31" stroke="#fff" stroke-width="2.5"/>'},
+6:{long:1,b:'#fff',h:'#fff',bk:'#f97316',bl:'#f1f5f9',lg:'#f97316',st:'#94a3b8',x:'<circle cx="52" cy="8.5" r="2.6" fill="#f97316"/>'},
+15:{b:'#57534e',h:'#78716c',bk:'#1f2937',bl:'#e7e5e4',lg:'#facc15',e:'#f59e0b',x:'<path d="M42 15L37 8L47 13Z" fill="#44403c"/><path d="M28 40H39M27 44H38" stroke="#78716c" stroke-width="1.5"/>'},
+16:{b:'#a8836a',h:'#c4a58f',bk:'#4b5563',bl:'#d6bfae',lg:'#e11d48',x:'<ellipse cx="42" cy="31" rx="4.5" ry="3.5" fill="#1f2937"/><g fill="#fff"><circle cx="40.5" cy="30" r=".9"/><circle cx="43" cy="31" r=".9"/><circle cx="41.5" cy="33" r=".9"/></g>'},
+19:{b:'#a3b830',h:'#84a62a',bk:'#6b7280',bl:'#fde68a',lg:'#6b7280',x:'<circle cx="48" cy="21" r="3.6" fill="none" stroke="#fff" stroke-width="1.5"/>'},
+20:{b:'#a16207',h:'#92400e',bk:'#4b5563',bl:'#e7d9c0',lg:'#d6a77a',x:'<ellipse cx="44" cy="26" rx="4" ry="3" fill="#f5f5f4"/><ellipse cx="42" cy="32" rx="3" ry="2.5" fill="#111"/>'}};
+const NB={
+7:'<path d="M8 44Q8 20 32 20Q56 20 56 44Z" fill="#65a30d"/><path d="M32 20V44M20 24L22 44M44 24L42 44M10 34H54" stroke="#365314" stroke-width="1.5" fill="none"/><circle cx="58" cy="38" r="5" fill="#a3a380"/><path d="M54 36L62 38" stroke="#facc15" stroke-width="1.5"/><circle cx="59" cy="36" r="1.2" fill="#111"/><path d="M14 44V52M26 44V52M40 44V52M50 44V52" stroke="#a3a380" stroke-width="4" stroke-linecap="round"/>',
+8:'<path d="M12 32L1 20V44Z" fill="#64748b"/><ellipse cx="30" cy="32" rx="20" ry="13" fill="#94a3b8"/><path d="M18 20Q30 10 42 20Z" fill="#64748b"/><path d="M22 22V42M30 20V44M38 22V42" stroke="#475569" stroke-width="2"/><circle cx="43" cy="29" r="2.5" fill="#fff"/><circle cx="43.5" cy="29" r="1.2" fill="#111"/>',
+9:'<ellipse cx="30" cy="40" rx="20" ry="11" fill="#b45309"/><path d="M14 36Q30 28 44 32" stroke="#fde68a" stroke-width="2" fill="none"/><ellipse cx="46" cy="32" rx="10" ry="7" fill="#b45309"/><circle cx="48" cy="25" r="4.2" fill="#fef3c7"/><circle cx="49" cy="25" r="2" fill="#111"/><circle cx="41" cy="30" r="2.5" fill="none" stroke="#7c2d12"/><path d="M50 36L60 37" stroke="#7c2d12" stroke-width="1.5"/><path d="M14 44L6 56H20M40 48L46 58" stroke="#92400e" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>',
+10:'<path d="M32 30Q8 6 4 28Q8 38 32 34Z" fill="#1f2937"/><path d="M32 30Q56 6 60 28Q56 38 32 34Z" fill="#1f2937"/><path d="M32 34Q8 40 12 54L16 60L22 50Q30 46 32 40Z" fill="#1f2937"/><path d="M32 34Q56 40 52 54L48 60L42 50Q34 46 32 40Z" fill="#1f2937"/><g fill="#fef9c3"><circle cx="14" cy="26" r="2.5"/><circle cx="22" cy="24" r="2.5"/><circle cx="50" cy="26" r="2.5"/><circle cx="42" cy="24" r="2.5"/></g><circle cx="17" cy="47" r="2.2" fill="#f97316"/><circle cx="47" cy="47" r="2.2" fill="#f97316"/><ellipse cx="32" cy="32" rx="2" ry="12" fill="#111"/><path d="M31 21L26 10M33 21L38 10" stroke="#111" stroke-width="1.2"/>',
+11:'<ellipse cx="28" cy="38" rx="11" ry="4.5" fill="#374151"/><circle cx="41" cy="37" r="4" fill="#1f2937"/><path d="M44 38L52 42" stroke="#1f2937" stroke-width="1.5"/><ellipse cx="26" cy="27" rx="13" ry="5" fill="#bfdbfe" opacity=".75" transform="rotate(-18 26 27)"/><ellipse cx="32" cy="25" rx="11" ry="4" fill="#dbeafe" opacity=".75" transform="rotate(8 32 25)"/><path d="M24 42L20 54M30 42V56M36 42L40 54M42 33L48 26" stroke="#374151" stroke-width="1.5"/>',
+12:'<path d="M20 46Q0 40 6 20Q14 6 26 20Q14 28 24 40Z" fill="#78716c"/><ellipse cx="32" cy="42" rx="13" ry="12" fill="#6b7280"/><ellipse cx="37" cy="46" rx="8" ry="8" fill="#c2410c"/><circle cx="43" cy="26" r="8" fill="#6b7280"/><circle cx="40" cy="19" r="3" fill="#6b7280"/><circle cx="46" cy="24" r="1.6" fill="#111"/><circle cx="51" cy="28" r="1.6" fill="#111"/><path d="M30 52V58M40 52V58" stroke="#6b7280" stroke-width="4" stroke-linecap="round"/>',
+13:'<path d="M8 42Q28 30 46 34" stroke="#84a040" stroke-width="10" stroke-linecap="round" fill="none"/><path d="M10 42Q4 50 2 58" stroke="#84a040" stroke-width="4" stroke-linecap="round" fill="none"/><ellipse cx="52" cy="33" rx="9" ry="5.5" fill="#84a040"/><circle cx="54" cy="31" r="1.6" fill="#111"/><path d="M58 35Q60 38 58 41" stroke="#ea580c" stroke-width="2" fill="none"/><circle cx="24" cy="36" r="2" fill="#3f6212"/><circle cx="34" cy="35" r="2" fill="#3f6212"/><path d="M26 40L22 52M42 38L46 50" stroke="#84a040" stroke-width="3" stroke-linecap="round"/>',
+17:'<ellipse cx="30" cy="40" rx="20" ry="13" fill="#78716c"/><g fill="#57534e"><circle cx="20" cy="36" r="2.2"/><circle cx="28" cy="32" r="2.2"/><circle cx="36" cy="34" r="2.2"/><circle cx="26" cy="43" r="2.2"/><circle cx="35" cy="44" r="2.2"/><circle cx="16" cy="43" r="2.2"/></g><ellipse cx="47" cy="35" rx="9" ry="7" fill="#78716c"/><path d="M42 29Q48 22 55 30" stroke="#111" stroke-width="3" fill="none"/><circle cx="50" cy="29" r="3" fill="#f59e0b"/><circle cx="50.5" cy="29" r="1.4" fill="#111"/><path d="M14 48L10 57H22M40 50L46 57" stroke="#57534e" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'};
+function ic(s){const p=IP[s.id];if(!p)return NB[s.id]?`<svg width="68" height="68" viewBox="0 0 64 64" aria-hidden="true">${NB[s.id]}</svg>`:s.em;const L=p.long,hx=46,hy=L?12:22;
+return `<svg width="68" height="68" viewBox="0 0 64 64" aria-hidden="true" stroke="${p.st||'none'}" stroke-width="1"><path d="M20 36L3 44L22 45Z" fill="${p.b}"/><path d="M28 47V58M35 47V58" stroke="${p.lg}" stroke-width="2.5" stroke-linecap="round"/>${p.ft||''}<ellipse cx="31" cy="38" rx="17" ry="11" fill="${p.b}"/><ellipse cx="34" cy="43" rx="11" ry="6" fill="${p.bl}"/>${L?`<path d="M40 32Q32 20 ${hx} ${hy}" stroke="${p.h}" stroke-width="6" stroke-linecap="round" fill="none"/>`:`<path d="M38 33L40 22H50L46 36Z" fill="${p.h}"/>`}<circle cx="${hx}" cy="${hy}" r="7.5" fill="${p.h}"/>${p.x||''}<path d="${L?'M52 10L63 14L52 16':'M51 20L61 24L51 27'}Z" fill="${p.bk}"/><circle cx="${hx+2}" cy="${hy-1}" r="1.7" fill="${p.e||'#111'}" stroke="none"/></svg>`}
+function card(s){const f=!!S.f[s.id],hid=sil&&!f&&!S.rv[s.id];const mt=s.m?s.m.replace('-','–')+' 月':'全年';
+const snd=[1,9,14].includes(s.id)?`<button class="btn" onclick="snd(${s.id})">🔊 聽聽叫聲（示意音效）</button>`:'';
+return `<div class="c ${f?'f':''}"><div class="ph ${hid?'sil':''}" role="img" aria-label="${hid?'剪影':s.cat+'圖示'}">${ic(s)}</div><div class="cb">
+<h3>${hid?'？？？':s.name} ${f?'<span class="tg" style="color:var(--am);border-color:var(--am)">✅ 已尋獲</span>':''}</h3>
+<div><span class="tg r${s.rar}">${RN[s.rar]} ${'★'.repeat(s.rar)}</span> <span class="tg">${hid?'？':s.cat}</span> <span class="tg">📅 ${mt}</span></div>
+${hid?`<div class="m">🧩 ${s.rid}</div><div class="gi"><input id="g${s.id}" placeholder="輸入名稱或俗稱" onkeydown="if(event.key=='Enter')guess(${s.id})"><button class="btn p" style="min-height:40px" onclick="guess(${s.id})">作答</button></div><button class="btn" onclick="giveUp(${s.id})">放棄，看答案</button>`
+:`${s.alias?`<div class="m">俗稱：${s.alias}</div>`:''}<div class="m">📍 ${Z[s.zone][0]}</div><div class="m">${s.desc}${s.note}</div>`}
+${s.alert?`<div class="al">⚠️ ${s.alert}</div>`:''}
+<div class="row">${snd}${hid?'':`<a class="btn" style="display:grid;place-items:center;text-decoration:none" target="_blank" rel="noopener noreferrer" href="${wiki(s.name)}">📖 維基百科</a>`}<button class="btn ${f?'':'p'}" onclick="chk(${s.id})">${f?'取消尋獲':'標記尋獲'}</button></div></div></div>`}
+function clr(){$('fz').value='';$('fc').value='';$('fs').value='';$('fm').value=0;$('q').value='';draw()}
+function mark(id){S.f[id]=1;S.rv[id]=S.rv[id]||'f';save();confetti(24);checkBadges();draw()}
+function chk(id){if(S.f[id]){delete S.f[id];if(S.rv[id]=='f')delete S.rv[id];save();draw();return}
+if(!$('gps').checked||$('test').checked){mark(id);return}
+const s=D[id-1],z=Z[s.zone],g=$('gmsg');if(!navigator.geolocation){g.textContent='❌ 此裝置不支援定位，請改用測試模式。';return}
+g.textContent='定位中…';navigator.geolocation.getCurrentPosition(p=>{const d=hav(p.coords.latitude,p.coords.longitude,z[1],z[2]);
+if(d<=z[3]){g.textContent='✅ 位於範圍內（距中心 '+Math.round(d)+' 公尺）';mark(id)}else g.textContent=`📍 你距「${z[0]}」中心約 ${Math.round(d)} 公尺，需在 ${z[3]} 公尺內才能打卡。`},
+e=>g.textContent=(e.code==1?'❌ 定位權限被拒絕':'❌ 無法取得定位')+'，請改用測試模式。',{enableHighAccuracy:true,timeout:10000})}
+function hav(a,b,c,d){const r=x=>x*Math.PI/180,h=Math.sin(r(c-a)/2)**2+Math.cos(r(a))*Math.cos(r(c))*Math.sin(r(d-b)/2)**2;return 12742000*Math.asin(Math.sqrt(h))}
+function gpsChg(){$('gmsg').textContent=$('gps').checked?'已啟用定位驗證。':''}
+function guess(id){const s=D[id-1],v=$('g'+id).value.trim();if(!v)return;if(v==s.name||s.alias.split('、').includes(v)){S.rv[id]='s';save();confetti(40);toast('🎉 答對了！是'+s.name);checkBadges();draw()}else toast('再想想看～')}
+function giveUp(id){S.rv[id]='g';save();draw()}
+function toggleSil(){sil=!sil;save();draw()}
+function resetAll(){if(!confirm('確定要重置嗎？這會清除所有尋獲、猜謎進度與徽章。'))return;S.f={};S.rv={};S.bd={};save();checkBadges(true);draw();toast('已重置紀錄')}
+let ac;function snd(id){const C=window.AudioContext||window.webkitAudioContext;if(!C)return;ac=ac||new C();const pat={1:[[110,0,.5,'sine'],[100,.7,.5,'sine']],9:[[500,0,.12,'sawtooth'],[450,.2,.12,'sawtooth'],[500,.4,.12,'sawtooth'],[420,.6,.2,'sawtooth']],14:[[700,0,.08,'square'],[700,.25,.08,'square'],[700,.5,.08,'square'],[700,.75,.08,'square']]}[id];
+pat.forEach(([f,t,d,w])=>{const o=ac.createOscillator(),g=ac.createGain();o.type=w;o.frequency.value=f;g.gain.setValueAtTime(.001,ac.currentTime+t);g.gain.exponentialRampToValueAtTime(.15,ac.currentTime+t+.02);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+t+d);o.connect(g).connect(ac.destination);o.start(ac.currentTime+t);o.stop(ac.currentTime+t+d+.05)});toast('🔊 合成示意音效，非實際叫聲')}
+$('fm').innerHTML='<option value="0">所有月份</option>'+[...Array(12)].map((_,i)=>`<option value="${i+1}">${i+1} 月</option>`).join('');$('fm').value=new Date().getMonth()+1;
+$('fz').innerHTML='<option value="">全校園區域</option>'+Object.entries(Z).map(([k,v])=>`<option value="${k}">${v[0]}</option>`).join('');
+checkBadges(true);draw();
+</script></body></html>
